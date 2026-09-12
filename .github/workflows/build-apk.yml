@@ -1,0 +1,56 @@
+name: Build Alpha App Store V1 APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Ensure Gradle wrapper files
+        run: |
+          JAR="https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradle/wrapper/gradle-wrapper.jar"
+          SCRIPT="https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradlew"
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Fetching official Gradle 8.9 wrapper jar"
+            curl -fsSL -o gradle/wrapper/gradle-wrapper.jar "$JAR"
+          fi
+          if [ ! -f gradlew ]; then
+            echo "Fetching official Gradle 8.9 wrapper script"
+            curl -fsSL -o gradlew "$SCRIPT"
+          fi
+          chmod +x gradlew
+
+      - name: Build release APK
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Stage APK
+        run: |
+          mkdir -p dist
+          cp app/build/outputs/apk/release/app-release.apk dist/Alpha-App-Store-V1.apk
+
+      - name: Upload Alpha-App-Store-V1-APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Alpha-App-Store-V1-APK
+          path: dist/Alpha-App-Store-V1.apk
+          if-no-files-found: error

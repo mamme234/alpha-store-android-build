@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="alpha_background">#060B18</color>
+    <color name="splash_background">#060B18</color>
+    <color name="alpha_accent">#22D3EE</color>
+    <color name="alpha_text">#C7D2E8</color>
+    <color name="ic_launcher_background">#0B1226</color>
+</resources>
