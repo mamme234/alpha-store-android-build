@@ -57,7 +57,7 @@ jobs:
 
       # Publish the APK as a public GitHub Release asset. Releases are
       # downloadable by anyone - no GitHub account needed - unlike Actions
-      # artifacts which require authentication. The v1.0.0 release is kept
+      # artifacts which require authentication. The v1.1.0 release is kept
       # up to date on every successful build, so the stable link
       # /releases/latest/download/Alpha-App-Store-V1.apk always serves the
       # newest APK.
@@ -65,10 +65,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view v1.0.0 >/dev/null 2>&1; then
-            gh release upload v1.0.0 dist/Alpha-App-Store-V1.apk --clobber
+          if gh release view v1.1.0 >/dev/null 2>&1; then
+            gh release upload v1.1.0 dist/Alpha-App-Store-V1.apk --clobber
           else
-            gh release create v1.0.0 dist/Alpha-App-Store-V1.apk \
-              --title "Alpha App Store V1" \
-              --notes "Official Alpha App Store V1 release APK. Install directly on Android 8.0+."
+            gh release create v1.1.0 dist/Alpha-App-Store-V1.apk \
+              --title "Alpha App Store v1.1.0" \
+              --notes "Alpha App Store v1.1.0 release APK. Install directly on Android 8.0+."
           fi

@@ -128,6 +128,8 @@ object L10n {
         "categories" to "Categories",
         "install" to "Install",
         "update" to "Update",
+        "update_available" to "Update available",
+        "update_now" to "Update now",
         "open" to "Open",
         "installing" to "Downloading",
         "retry" to "Retry",
@@ -168,6 +170,8 @@ object L10n {
         "categories" to "ምድቦች",
         "install" to "ጫን",
         "update" to "ዛምን",
+        "update_available" to "ማዘመን አለ",
+        "update_now" to "አሁን ዛምን",
         "open" to "ከፈት",
         "installing" to "በሚጫን ላይ",
         "retry" to "እንደገና ሞክር",
@@ -208,6 +212,8 @@ object L10n {
         "categories" to "Ramaddii",
         "install" to "Olbisi",
         "update" to "Haaromsi",
+        "update_available" to "Haaromsii jira",
+        "update_now" to "Haaromsi ammaa",
         "open" to "Bani",
         "installing" to "Buufamaa",
         "retry" to "Irra deebi'i",
@@ -248,6 +254,8 @@ object L10n {
         "categories" to "التصنيفات",
         "install" to "تثبيت",
         "update" to "تحديث",
+        "update_available" to "يتوفر تحديث",
+        "update_now" to "تحديث الآن",
         "open" to "فتح",
         "installing" to "جارٍ التنزيل",
         "retry" to "إعادة المحاولة",
@@ -338,6 +346,14 @@ data class HomeFeed(
     val recentlyUpdated: List<StoreApp>,
     val popularGames: List<StoreApp>,
     val recommended: List<StoreApp>,
+)
+
+data class StoreUpdate(
+    val newVersionName: String,
+    val newVersionCode: Long,
+    val sizeBytes: Long?,
+    val releaseNotes: String?,
+    val apkUrl: String?,
 )
 
 data class UpdateRow(
@@ -572,6 +588,38 @@ object AlphaApi {
         }
     }
 
+    /**
+     * Self-update check for this app. Calls /api/updates with the real
+     * installed versionCode; a row comes back ONLY when the store's
+     * published versionCode is strictly greater — never fabricated.
+     */
+    fun checkOwnUpdate(installedCode: Long): StoreUpdate? {
+        val packages = JSONArray()
+        packages.put(
+            JSONObject()
+                .put("packageId", "com.alphaappstore.mobile")
+                .put("versionCode", installedCode),
+        )
+        val text = request(
+            "/api/updates",
+            JSONObject().put("packages", packages).toString(),
+        ) ?: return null
+        return try {
+            val arr = JSONObject(text).getJSONArray("updates")
+            if (arr.length() == 0) return null
+            val u = arr.getJSONObject(0)
+            StoreUpdate(
+                newVersionName = u.optString("newVersionName"),
+                newVersionCode = u.optLong("newVersionCode"),
+                sizeBytes = optLong(u, "sizeBytes"),
+                releaseNotes = optStr(u, "releaseNotes"),
+                apkUrl = optStr(u, "apkUrl"),
+            )
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun deviceId(ctx: Context): String {
         val prefs = ctx.getSharedPreferences("alpha_prefs", Context.MODE_PRIVATE)
         val saved = prefs.getString("device_id", null)
@@ -797,6 +845,7 @@ fun AlphaStoreApp() {
     val ctx = LocalContext.current
     var lang by remember { mutableStateOf(L10n.load(ctx)) }
     var tab by remember { mutableStateOf(Tab.HOME) }
+    var storeUpdate by remember { mutableStateOf<StoreUpdate?>(null) }
     var searchOpen by remember { mutableStateOf(false) }
     var aboutOpen by remember { mutableStateOf(false) }
     var langOpen by remember { mutableStateOf(false) }
@@ -821,6 +870,16 @@ fun AlphaStoreApp() {
                             installManager.maybeAutoInstall(pkg, next)
                         }
                         delay(900)
+                    }
+                }
+
+                // Self-update check on every launch: real versionCode
+                // comparison, so v1.0.0 / v1.1.0 installs see an update
+                // prompt as soon as a newer release is published.
+                LaunchedEffect(Unit) {
+                    val mine = withContext(Dispatchers.IO) { ownVersion(ctx) }
+                    storeUpdate = withContext(Dispatchers.IO) {
+                        AlphaApi.checkOwnUpdate(mine.second)
                     }
                 }
 
@@ -922,14 +981,28 @@ fun AlphaStoreApp() {
                             }
                         },
                     ) { pad ->
-                        Box(Modifier.padding(pad).fillMaxSize()) {
-                            when (tab) {
+                        Column(Modifier.padding(pad).fillMaxSize()) {
+                            storeUpdate?.let { upd ->
+                                UpdateBanner(
+                                    lang = lang,
+                                    update = upd,
+                                    downloadState = installs["com.alphaappstore.mobile"],
+                                    onUpdate = {
+                                        val url = upd.apkUrl ?: AlphaApi.RELEASE_PAGE
+                                        download("com.alphaappstore.mobile", url, "Alpha App Store")
+                                    },
+                                    onDismiss = { storeUpdate = null },
+                                )
+                            }
+                            Box(Modifier.fillMaxSize()) {
+                                when (tab) {
                                 Tab.HOME -> HomeScreen(lang, openDetails)
                                 Tab.APPS -> BrowseScreen(lang, "apps", openDetails)
                                 Tab.GAMES -> BrowseScreen(lang, "games", openDetails)
                                 Tab.UPDATES -> UpdatesScreen(lang, installManager, installs)
                                 Tab.LIBRARY -> LibraryScreen(lang) { pkg ->
                                     openStoreApp(ctx, pkg)
+                                }
                                 }
                             }
                         }
@@ -998,6 +1071,10 @@ fun LangDialog(current: String, onPick: (String) -> Unit) {
 @Composable
 fun AboutDialog(ctx: Context, lang: String, onClose: () -> Unit) {
     val (vName, vCode) = remember { ownVersion(ctx) }
+    var selfUpdate by remember { mutableStateOf<StoreUpdate?>(null) }
+    LaunchedEffect(Unit) {
+        selfUpdate = withContext(Dispatchers.IO) { AlphaApi.checkOwnUpdate(vCode) }
+    }
     AlertDialog(
         onDismissRequest = onClose,
         confirmButton = {
@@ -1020,6 +1097,16 @@ fun AboutDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                     color = AlphaText,
                     fontSize = 14.sp,
                 )
+                selfUpdate?.let { upd ->
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        L10n.t(lang, "update_available") + ": v" + upd.newVersionName +
+                            " (" + upd.newVersionCode + ")",
+                        color = AlphaAccent,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
                 Spacer(Modifier.height(4.dp))
                 Text("© 2026 Alpha App Store", color = AlphaTextDim, fontSize = 12.sp)
                 Spacer(Modifier.height(12.dp))
@@ -1243,6 +1330,61 @@ fun ErrorBox(lang: String, onRetry: () -> Unit) {
 // ============================================================
 // Screens
 // ============================================================
+
+/**
+ * Launch-time update banner for the store app itself. Rendered only when
+ * the backend reports a genuinely newer versionCode. One tap downloads the
+ * real APK via DownloadManager; the existing poller then opens the installer.
+ */
+@Composable
+fun UpdateBanner(
+    lang: String,
+    update: StoreUpdate,
+    downloadState: DownloadState?,
+    onUpdate: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(AlphaSurfaceColor)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            Icons.Filled.SystemUpdate,
+            contentDescription = null,
+            tint = AlphaAccent,
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                L10n.t(lang, "update_available") + " — v" + update.newVersionName,
+                color = AlphaText,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 13.sp,
+            )
+            update.sizeBytes?.let { sz ->
+                Text(formatBytes(sz), color = AlphaTextDim, fontSize = 11.sp)
+            }
+        }
+        when (downloadState) {
+            is DownloadState.Downloading -> CircularProgressIndicator(
+                modifier = Modifier.size(18.dp),
+                strokeWidth = 2.dp,
+                color = AlphaAccent,
+            )
+            is DownloadState.Ready, is DownloadState.Failed -> Unit
+            else -> TextButton(onClick = onUpdate) {
+                Text(L10n.t(lang, "update_now"), color = AlphaAccent, fontSize = 13.sp)
+            }
+        }
+        IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
+            Text("×", color = AlphaTextDim, fontSize = 16.sp)
+        }
+    }
+}
 
 @Composable
 fun HomeScreen(lang: String, onOpen: (String) -> Unit) {
