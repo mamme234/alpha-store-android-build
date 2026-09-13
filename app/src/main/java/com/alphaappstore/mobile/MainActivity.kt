@@ -153,6 +153,18 @@ object L10n {
         "back" to "Back",
         "release_page" to "Get the latest APK on GitHub",
         "install_perm" to "Allow installs from Alpha App Store in Settings, then tap Install again.",
+        "account" to "Account",
+        "sign_in" to "Sign in",
+        "sign_out" to "Sign out",
+        "account_email" to "Email address",
+        "account_email_bad" to "Enter a valid email address",
+        "send_code" to "Send code",
+        "sending" to "Sending…",
+        "code_sent" to "Code sent to",
+        "account_code" to "6-digit code",
+        "verify" to "Verify",
+        "account_code_wrong" to "Wrong or expired code",
+        "signed_in_as" to "Signed in as",
     )
 
     private val AM = mapOf(
@@ -195,6 +207,18 @@ object L10n {
         "back" to "ተመለስ",
         "release_page" to "አዲስ APK ከGitHub ያግኙ",
         "install_perm" to "በቅንብሮች ከAlpha App Store መጫን ይፍቀዱ፣ ከዚካ እንደገና ይጫኑ።",
+        "account" to "መለያ",
+        "sign_in" to "ግባ",
+        "sign_out" to "ውጣ",
+        "account_email" to "ኢሜይል አድራሻ",
+        "account_email_bad" to "ትክክለኛ ኢሜይል ያስገቡ",
+        "send_code" to "ኮድ ላክ",
+        "sending" to "በማስላክ ላይ…",
+        "code_sent" to "ኮድ ተልኳል ለ",
+        "account_code" to "6-አሃዝ ኮድ",
+        "verify" to "አረጋግጥ",
+        "account_code_wrong" to "ስህተኛ ወይም ጊዜው ያለፈበት ኮድ",
+        "signed_in_as" to "ገብተዋል እንደ",
     )
 
     private val OM = mapOf(
@@ -237,6 +261,18 @@ object L10n {
         "back" to "Galdi",
         "release_page" to "APK haaraa GitHub irra",
         "install_perm" to "Sajoo irratti olbisa hayyami, ergasii irra deebi' olbisi.",
+        "account" to "Asxaa",
+        "sign_in" to "Seeni",
+        "sign_out" to "Ba'i",
+        "account_email" to "Imeelii",
+        "account_email_bad" to "Imeelii sirrii galchi",
+        "send_code" to "Koodii erki",
+        "sending" to "Ergamaa…",
+        "code_sent" to "Koodii erame",
+        "account_code" to "Koodii 6-lakkoofsaa",
+        "verify" to "Mirkaneessi",
+        "account_code_wrong" to "Koodii dogoggora ykn dhume",
+        "signed_in_as" to "Seenatee akka",
     )
 
     private val AR = mapOf(
@@ -279,6 +315,18 @@ object L10n {
         "back" to "رجوع",
         "release_page" to "الحصول على أحدث إصدار من GitHub",
         "install_perm" to "اسمح بالتثبيت من Alpha App Store في الإعدادات، ثم اضغط تثبيت مجددًا.",
+        "account" to "الحساب",
+        "sign_in" to "تسجيل الدخول",
+        "sign_out" to "تسجيل الخروج",
+        "account_email" to "البريد الإلكتروني",
+        "account_email_bad" to "أدخل بريدًا إلكترونيًا صحيحًا",
+        "send_code" to "إرسال الرمز",
+        "sending" to "جارٍ الإرسال…",
+        "code_sent" to "تم إرسال الرمز إلى",
+        "account_code" to "رمز من 6 أرقام",
+        "verify" to "تحقق",
+        "account_code_wrong" to "رمز خاطئ أو منتهي الصلاحية",
+        "signed_in_as" to "تم تسجيل الدخول كـ",
     )
 
     private val TABLE = mapOf("en" to EN, "am" to AM, "om" to OM, "ar" to AR)
@@ -620,6 +668,44 @@ object AlphaApi {
         }
     }
 
+    /**
+     * POST JSON; returns the response body even for 4xx/5xx so callers can
+     * surface the server's real error message.
+     */
+    fun postJsonVerbose(path: String, body: String): String? {
+        return try {
+            val conn = URL(BASE + path).openConnection() as HttpURLConnection
+            conn.connectTimeout = 12000
+            conn.readTimeout = 20000
+            conn.requestMethod = "POST"
+            conn.doOutput = true
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }
+            val code = conn.responseCode
+            val stream = if (code in 200..299) conn.inputStream else conn.errorStream
+            stream?.bufferedReader(Charsets.UTF_8)?.use { it.readText() }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /** GET with a Bearer session token — used by the account endpoints. */
+    fun authedGet(path: String, token: String): String? {
+        return try {
+            val conn = URL(BASE + path).openConnection() as HttpURLConnection
+            conn.connectTimeout = 12000
+            conn.readTimeout = 20000
+            conn.requestMethod = "GET"
+            conn.setRequestProperty("Authorization", "Bearer " + token)
+            val code = conn.responseCode
+            if (code in 200..299) {
+                conn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+            } else null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun deviceId(ctx: Context): String {
         val prefs = ctx.getSharedPreferences("alpha_prefs", Context.MODE_PRIVATE)
         val saved = prefs.getString("device_id", null)
@@ -632,6 +718,115 @@ object AlphaApi {
         }
         prefs.edit().putString("device_id", fresh).apply()
         return fresh
+    }
+}
+
+// ============================================================
+// Account: real email-OTP sign-in over the same Convex Auth
+// backend the web console uses. Session tokens persist locally
+// and refresh automatically on app start.
+// ============================================================
+
+data class VerifyResult(val token: String?, val refreshToken: String?, val error: String?)
+
+object Account {
+    private const val PREFS = "alpha_account"
+    private const val KEY_TOKEN = "token"
+    private const val KEY_REFRESH = "refresh_token"
+    private const val KEY_EMAIL = "email"
+
+    fun isSignedIn(ctx: Context): Boolean = token(ctx) != null
+
+    fun token(ctx: Context): String? = prefs(ctx).getString(KEY_TOKEN, null)
+
+    fun email(ctx: Context): String? = prefs(ctx).getString(KEY_EMAIL, null)
+
+    fun save(ctx: Context, token: String, refresh: String, email: String) {
+        prefs(ctx).edit()
+            .putString(KEY_TOKEN, token)
+            .putString(KEY_REFRESH, refresh)
+            .putString(KEY_EMAIL, email)
+            .apply()
+    }
+
+    private fun saveTokens(ctx: Context, token: String, refresh: String) {
+        prefs(ctx).edit()
+            .putString(KEY_TOKEN, token)
+            .putString(KEY_REFRESH, refresh)
+            .apply()
+    }
+
+    fun clear(ctx: Context) {
+        prefs(ctx).edit().clear().apply()
+    }
+
+    private fun prefs(ctx: Context) =
+        ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+
+    /**
+     * Refresh the session token. Returns false when the session is gone
+     * (the app keeps working in guest mode either way).
+     */
+    fun refresh(ctx: Context): Boolean {
+        val refresh = prefs(ctx).getString(KEY_REFRESH, null) ?: return false
+        val text = AlphaApi.postJsonVerbose(
+            "/api/auth/mobile/refresh",
+            JSONObject().put("refreshToken", refresh).toString(),
+        ) ?: return false
+        return try {
+            val o = JSONObject(text)
+            val t = o.optString("token")
+            val r = o.optString("refreshToken")
+            if (t.isNotEmpty() && r.isNotEmpty()) {
+                saveTokens(ctx, t, r)
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    /** Signed-in profile from the server; null when the session is invalid. */
+    fun me(ctx: Context): Pair<String, String>? {
+        val t = token(ctx) ?: return null
+        val text = AlphaApi.authedGet("/api/auth/mobile/me", t) ?: return null
+        return try {
+            val o = JSONObject(text)
+            Pair(o.optString("name"), o.optString("email"))
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /** Sends the 6-digit code. Returns null on success, else an error message. */
+    fun startSignIn(email: String): String? {
+        val body = JSONObject().put("email", email).toString()
+        val text = AlphaApi.postJsonVerbose("/api/auth/mobile/start", body)
+            ?: return "Network error"
+        return try {
+            val o = JSONObject(text)
+            if (o.optBoolean("started", false)) null
+            else o.optString("error", "Could not send code").take(160)
+        } catch (e: Exception) {
+            "Could not send code"
+        }
+    }
+
+    /** Verifies the code and returns session tokens, or the error reason. */
+    fun verifyCode(email: String, code: String): VerifyResult {
+        val body = JSONObject().put("email", email).put("code", code).toString()
+        val text = AlphaApi.postJsonVerbose("/api/auth/mobile/verify", body)
+            ?: return VerifyResult(null, null, "network")
+        return try {
+            val o = JSONObject(text)
+            if (o.has("token") && o.has("refreshToken")) {
+                VerifyResult(o.getString("token"), o.getString("refreshToken"), null)
+            } else {
+                VerifyResult(null, null, "bad_code")
+            }
+        } catch (e: Exception) {
+            VerifyResult(null, null, "bad_code")
+        }
     }
 }
 
@@ -848,6 +1043,7 @@ fun AlphaStoreApp() {
     var storeUpdate by remember { mutableStateOf<StoreUpdate?>(null) }
     var searchOpen by remember { mutableStateOf(false) }
     var aboutOpen by remember { mutableStateOf(false) }
+    var accountOpen by remember { mutableStateOf(false) }
     var langOpen by remember { mutableStateOf(false) }
     var selectedAppId by remember { mutableStateOf<String?>(null) }
 
@@ -880,6 +1076,13 @@ fun AlphaStoreApp() {
                     val mine = withContext(Dispatchers.IO) { ownVersion(ctx) }
                     storeUpdate = withContext(Dispatchers.IO) {
                         AlphaApi.checkOwnUpdate(mine.second)
+                    }
+                }
+
+                // Keep the account session fresh (real token refresh).
+                LaunchedEffect(Unit) {
+                    if (Account.isSignedIn(ctx)) {
+                        withContext(Dispatchers.IO) { Account.refresh(ctx) }
                     }
                 }
 
@@ -928,6 +1131,13 @@ fun AlphaStoreApp() {
                                             Icons.Filled.Language,
                                             contentDescription = L10n.t(lang, "language"),
                                             tint = AlphaText,
+                                        )
+                                    }
+                                    IconButton(onClick = { accountOpen = true }) {
+                                        Icon(
+                                            Icons.Filled.Person,
+                                            contentDescription = L10n.t(lang, "account"),
+                                            tint = if (Account.isSignedIn(ctx)) AlphaAccent else AlphaText,
                                         )
                                     }
                                     IconButton(onClick = { aboutOpen = true }) {
@@ -1029,6 +1239,9 @@ fun AlphaStoreApp() {
                         langOpen = false
                     }
                 }
+                if (accountOpen) {
+                    AccountDialog(ctx, lang) { accountOpen = false }
+                }
             }
         }
     }
@@ -1123,6 +1336,167 @@ fun AboutDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                         }
                     },
                 )
+            }
+        },
+        containerColor = AlphaSurfaceHigh,
+    )
+}
+
+/**
+ * Account dialog: email-OTP sign-in against the same Convex Auth backend the
+ * web console uses. Signed-in sessions persist on the device and show the
+ * verified email; sign-out clears the stored tokens.
+ */
+@Composable
+fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
+    val scope = rememberCoroutineScope()
+    var stage by remember { mutableStateOf(if (Account.isSignedIn(ctx)) "in" else "email") }
+    var email by remember { mutableStateOf(Account.email(ctx) ?: "") }
+    var code by remember { mutableStateOf("") }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var refreshTick by remember { mutableIntStateOf(0) }
+
+    AlertDialog(
+        onDismissRequest = onClose,
+        confirmButton = {},
+        title = { Text(L10n.t(lang, "account"), color = AlphaText) },
+        text = {
+            Column {
+                if (stage == "in") {
+                    var info by remember { mutableStateOf<Pair<String, String>?>(null) }
+                    LaunchedEffect(refreshTick) {
+                        info = withContext(Dispatchers.IO) { Account.me(ctx) }
+                    }
+                    Icon(
+                        Icons.Filled.CheckCircle,
+                        contentDescription = null,
+                        tint = Color(0xFF34D399),
+                        modifier = Modifier.size(34.dp),
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(L10n.t(lang, "signed_in_as"), color = AlphaTextDim, fontSize = 12.sp)
+                    val i = info
+                    Text(
+                        i?.second ?: Account.email(ctx) ?: "",
+                        color = AlphaText,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                    i?.first?.takeIf { it.isNotBlank() }?.let { n ->
+                        Text(n, color = AlphaAccent, fontSize = 13.sp)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Row {
+                        TextButton(onClick = {
+                            Account.clear(ctx)
+                            stage = "email"
+                            email = ""
+                            code = ""
+                            error = null
+                        }) {
+                            Text(L10n.t(lang, "sign_out"), color = Color(0xFFF87171))
+                        }
+                        TextButton(onClick = onClose) {
+                            Text(L10n.t(lang, "cancel"), color = AlphaAccent)
+                        }
+                    }
+                } else if (stage == "email") {
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        singleLine = true,
+                        placeholder = { Text(L10n.t(lang, "account_email"), color = AlphaTextDim) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = AlphaAccent,
+                            cursorColor = AlphaAccent,
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Button(
+                        onClick = {
+                            val addr = email.trim()
+                            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(addr).matches()) {
+                                error = L10n.t(lang, "account_email_bad")
+                            } else {
+                                busy = true
+                                error = null
+                                scope.launch {
+                                    val err = withContext(Dispatchers.IO) {
+                                        Account.startSignIn(addr)
+                                    }
+                                    busy = false
+                                    if (err == null) {
+                                        email = addr
+                                        stage = "code"
+                                    } else {
+                                        error = err
+                                    }
+                                }
+                            }
+                        },
+                        enabled = !busy,
+                    ) {
+                        Text(
+                            if (busy) L10n.t(lang, "sending") else L10n.t(lang, "send_code"),
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                    }
+                    TextButton(onClick = onClose) {
+                        Text(L10n.t(lang, "cancel"), color = AlphaTextDim, fontSize = 13.sp)
+                    }
+                } else {
+                    Text(
+                        L10n.t(lang, "code_sent") + " " + email,
+                        color = AlphaTextDim,
+                        fontSize = 13.sp,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = code,
+                        onValueChange = { code = it.filter { ch -> ch.isDigit() }.take(6) },
+                        singleLine = true,
+                        placeholder = { Text(L10n.t(lang, "account_code"), color = AlphaTextDim) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = AlphaAccent,
+                            cursorColor = AlphaAccent,
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Button(
+                        onClick = {
+                            if (code.length == 6) {
+                                busy = true
+                                error = null
+                                scope.launch {
+                                    val r = withContext(Dispatchers.IO) {
+                                        Account.verifyCode(email.trim(), code)
+                                    }
+                                    busy = false
+                                    if (r.token != null && r.refreshToken != null) {
+                                        Account.save(ctx, r.token, r.refreshToken, email.trim())
+                                        refreshTick++
+                                        stage = "in"
+                                    } else {
+                                        error = L10n.t(lang, "account_code_wrong")
+                                    }
+                                }
+                            }
+                        },
+                        enabled = code.length == 6 && !busy,
+                    ) {
+                        Text(L10n.t(lang, "verify"), fontWeight = FontWeight.SemiBold)
+                    }
+                    TextButton(onClick = { stage = "email"; error = null }) {
+                        Text(L10n.t(lang, "back"), color = AlphaTextDim, fontSize = 13.sp)
+                    }
+                }
+                error?.let { msg ->
+                    Spacer(Modifier.height(6.dp))
+                    Text(msg, color = Color(0xFFF87171), fontSize = 12.sp)
+                }
             }
         },
         containerColor = AlphaSurfaceHigh,
