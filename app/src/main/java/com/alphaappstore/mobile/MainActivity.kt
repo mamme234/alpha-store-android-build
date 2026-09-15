@@ -86,6 +86,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -166,6 +167,37 @@ object L10n {
         "verify" to "Verify",
         "account_code_wrong" to "Wrong or expired code",
         "signed_in_as" to "Signed in as",
+        "profile" to "Profile",
+        "settings" to "Settings",
+        "gate_sub" to "Create your Alpha account to install, update and review apps.",
+        "gate_create" to "Create or sign in to your Alpha account",
+        "gate_note" to "One Alpha account works across the store, the Alpha Console and developer tools.",
+        "catalog_empty" to "No apps published yet. Developers publish from Profile, then Developer settings.",
+        "developer_center" to "Developer settings",
+        "developer_center_sub" to "Publish and manage your apps",
+        "dev_create" to "Create developer account",
+        "dev_name" to "Developer name",
+        "dev_username" to "Username (a-z, 0-9, dashes)",
+        "dev_create_btn" to "Create developer account",
+        "dev_apps" to "My apps",
+        "dev_no_apps" to "No apps yet. Create your first app in the Alpha Console.",
+        "github_title" to "GitHub connection",
+        "github_required" to "GitHub required before releasing",
+        "github_required_body" to "Every release must trace back to your real GitHub account. Create a public gist containing the verification text below, then paste its URL here.",
+        "github_login" to "GitHub username",
+        "github_gist" to "Public gist URL (https://gist.github.com/...)",
+        "github_connect" to "Verify and connect",
+        "github_disconnect" to "Disconnect GitHub",
+        "github_connected" to "GitHub connected",
+        "github_phrase" to "Verification text",
+        "copy" to "Copy",
+        "copied" to "Copied",
+        "installed_apps" to "Installed apps",
+        "install_settings" to "Install permissions",
+        "install_settings_on" to "Allowed",
+        "install_settings_off" to "Not allowed",
+        "switch_account" to "Signed in",
+        "not_connected" to "Not connected",
     )
 
     private val AM = mapOf(
@@ -220,6 +252,37 @@ object L10n {
         "verify" to "አረጋግጥ",
         "account_code_wrong" to "ስህተኛ ወይም ጊዜው ያለፈበት ኮድ",
         "signed_in_as" to "ገብተዋል እንደ",
+        "profile" to "መገለጫ",
+        "settings" to "ቅንብሮች",
+        "gate_sub" to "አፕሊኬሽኖችን ለመጫንና ለማዘመን የ Alpha መለያዎን ይፍጠሩ።",
+        "gate_create" to "የ Alpha መለያ ይፍጠሩ ወይም ይግቡ",
+        "gate_note" to "አንድ የ Alpha መለያ ለመደብሩ፣ ለ Alpha Console እና ለገንቢ መሳሪያዎች ያገለግላል።",
+        "catalog_empty" to "እስካሁን ምንም አፕ አልተለቀቀም። ገንቢዎች ከመገለጫ ይለቃሉ።",
+        "developer_center" to "የገንቢ ቅንብሮች",
+        "developer_center_sub" to "አፖችዎን ያትሙ እና ያስተዳድሩ",
+        "dev_create" to "የገንቢ መለያ ይፍጠሩ",
+        "dev_name" to "የገንቢ ስም",
+        "dev_username" to "የተጠቃሚ ስም",
+        "dev_create_btn" to "የገንቢ መለያ ይፍጠሩ",
+        "dev_apps" to "የእኔ አፖች",
+        "dev_no_apps" to "እስካሁን አፕ የለም።",
+        "github_title" to "የ GitHub ግንኙነት",
+        "github_required" to "ከመልቀቅ በፊት GitHub ያስፈልጋል",
+        "github_required_body" to "እያንዳንዱ ልቀት ከእውነተኛ የ GitHub መለያዎ ጋር መገናኘት አለበት። ከዚህ በታች ያለውን ጽሑፍ የያዘ public gist ፍጠሩ፣ ከዚያ የ gist URL እዚህ ያስገቡ።",
+        "github_login" to "የ GitHub የተጠቃሚ ስም",
+        "github_gist" to "public gist URL",
+        "github_connect" to "አረጋግጥና አገናኝ",
+        "github_disconnect" to "GitHub ለያይ",
+        "github_connected" to "GitHub ተገናኝቷል",
+        "github_phrase" to "የማረጋገጫ ጽሑፍ",
+        "copy" to "ቅዳ",
+        "copied" to "ተቀድቷል",
+        "installed_apps" to "የተጫኑ አፖች",
+        "install_settings" to "የመጫን ፈቃድ",
+        "install_settings_on" to "ተፈቅዷል",
+        "install_settings_off" to "አልተፈቀደም",
+        "switch_account" to "ገብተዋል",
+        "not_connected" to "አልተገናኘም",
     )
 
     private val OM = mapOf(
@@ -274,6 +337,37 @@ object L10n {
         "verify" to "Mirkaneessi",
         "account_code_wrong" to "Koodii dogoggora ykn dhume",
         "signed_in_as" to "Seenatee akka",
+        "profile" to "Profaayilii",
+        "settings" to "Qindaa'ina",
+        "gate_sub" to "Aappii olbisuu fi haaromsuuf herrega Alpha kee uumi.",
+        "gate_create" to "Herrega Alpha uumi ykn seeni",
+        "gate_note" to "Herrega Alpha tokko suuqii, Alpha Console fi meeshaalee hojjetaaf ni tajaajila.",
+        "catalog_empty" to "Aappiin hin maxxanfamne. Hojjettoonni profaayilii irraa maxxansu.",
+        "developer_center" to "Qindaa'ina hojjetaa",
+        "developer_center_sub" to "Aappii kee maxxansi fi bulchi",
+        "dev_create" to "Herrega hojjetaa uumi",
+        "dev_name" to "Maqaa hojjetaa",
+        "dev_username" to "Maqaa fayyadamaa",
+        "dev_create_btn" to "Herrega hojjetaa uumi",
+        "dev_apps" to "Aappii koo",
+        "dev_no_apps" to "Aappiin hin jiru.",
+        "github_title" to "Walqunnamtii GitHub",
+        "github_required" to "Maxxansuu dura GitHub barbaachisa",
+        "github_required_body" to "Maxxansi hundi herrega GitHub dhugaa keetiin walqabachuu qaba. Barruu mirkaneessuu armaan gadii qabate gist uumi, sana booda URL isaa as galchi.",
+        "github_login" to "Maqaa fayyadamaa GitHub",
+        "github_gist" to "URL gist uumamaa",
+        "github_connect" to "Mirkaneessi fi walqunnamsi",
+        "github_disconnect" to "GitHub adda baasi",
+        "github_connected" to "GitHub walqunnamte",
+        "github_phrase" to "Barruu mirkaneessaa",
+        "copy" to "Koppii",
+        "copied" to "Koppii ta'e",
+        "installed_apps" to "Aappii olbisaman",
+        "install_settings" to "Hayyama olbisa",
+        "install_settings_on" to "Hayyamame",
+        "install_settings_off" to "Hin hayyamamne",
+        "switch_account" to "Seenatee",
+        "not_connected" to "Hin walqunnamne",
     )
 
     private val AR = mapOf(
@@ -328,6 +422,37 @@ object L10n {
         "verify" to "تحقق",
         "account_code_wrong" to "رمز خاطئ أو منتهي الصلاحية",
         "signed_in_as" to "تم تسجيل الدخول كـ",
+        "profile" to "الملف الشخصي",
+        "settings" to "الإعدادات",
+        "gate_sub" to "أنشئ حساب Alpha الخاص بك لتثبيت التطبيقات وتحديثها وتقييمها.",
+        "gate_create" to "أنشئ حساب Alpha أو سجّل الدخول",
+        "gate_note" to "حساب Alpha واحد يعمل في المتجر و Alpha Console وأدوات المطورين.",
+        "catalog_empty" to "لا توجد تطبيقات منشورة بعد. ينشر المطورون من الملف الشخصي.",
+        "developer_center" to "إعدادات المطور",
+        "developer_center_sub" to "انشر تطبيقاتك وأدرها",
+        "dev_create" to "إنشاء حساب مطور",
+        "dev_name" to "اسم المطور",
+        "dev_username" to "اسم المستخدم",
+        "dev_create_btn" to "إنشاء حساب مطور",
+        "dev_apps" to "تطبيقاتي",
+        "dev_no_apps" to "لا توجد تطبيقات بعد.",
+        "github_title" to "ربط GitHub",
+        "github_required" to "GitHub مطلوب قبل النشر",
+        "github_required_body" to "يجب أن يرتبط كل إصدار بحساب GitHub الحقيقي الخاص بك. أنشئ gist عامًا يحتوي على نص التحقق أدناه، ثم الصق رابطه هنا.",
+        "github_login" to "اسم مستخدم GitHub",
+        "github_gist" to "رابط gist العام",
+        "github_connect" to "تحقق واربط",
+        "github_disconnect" to "فصل GitHub",
+        "github_connected" to "تم ربط GitHub",
+        "github_phrase" to "نص التحقق",
+        "copy" to "نسخ",
+        "copied" to "تم النسخ",
+        "installed_apps" to "التطبيقات المثبتة",
+        "install_settings" to "أذونات التثبيت",
+        "install_settings_on" to "مسموح",
+        "install_settings_off" to "غير مسموح",
+        "switch_account" to "مسجّل الدخول",
+        "not_connected" to "غير متصل",
     )
 
     private val TABLE = mapOf("en" to EN, "am" to AM, "om" to OM, "ar" to AR)
@@ -707,6 +832,25 @@ object AlphaApi {
         }
     }
 
+    /** POST JSON with a Bearer session token — used by developer endpoints. */
+    fun authedPost(path: String, body: String, token: String): String? {
+        return try {
+            val conn = URL(BASE + path).openConnection() as HttpURLConnection
+            conn.connectTimeout = 15000
+            conn.readTimeout = 25000
+            conn.requestMethod = "POST"
+            conn.doOutput = true
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Authorization", "Bearer " + token)
+            conn.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }
+            val code = conn.responseCode
+            val stream = if (code in 200..299) conn.inputStream else conn.errorStream
+            stream?.bufferedReader(Charsets.UTF_8)?.use { it.readText() }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun deviceId(ctx: Context): String {
         val prefs = ctx.getSharedPreferences("alpha_prefs", Context.MODE_PRIVATE)
         val saved = prefs.getString("device_id", null)
@@ -827,6 +971,123 @@ object Account {
             }
         } catch (e: Exception) {
             VerifyResult(null, null, "bad_code")
+        }
+    }
+}
+
+// ============================================================
+// Developer center: create the developer account and connect the
+// GitHub identity every release must trace back to.
+// ============================================================
+
+data class DevProfile(
+    val developerName: String,
+    val username: String,
+    val githubLogin: String?,
+    val githubVerified: Boolean,
+)
+
+data class DevAppRow(
+    val name: String,
+    val packageId: String,
+    val kind: String,
+    val state: String,
+)
+
+object Developer {
+    private fun reason(text: String?, fallback: String): String {
+        if (text == null) return "Network error"
+        return try {
+            val e = JSONObject(text).optString("error")
+            if (e.isNotEmpty()) e.take(180) else fallback
+        } catch (e: Exception) {
+            fallback
+        }
+    }
+
+    /** The signed-in user's developer profile, or null when none exists. */
+    fun profile(token: String): DevProfile? {
+        val text = AlphaApi.authedGet("/api/developer/profile", token) ?: return null
+        return try {
+            val o = JSONObject(text)
+            val name = o.optString("developerName")
+            if (name.isEmpty()) return null
+            DevProfile(
+                developerName = name,
+                username = o.optString("username"),
+                githubLogin = if (o.isNull("githubLogin")) null else o.optString("githubLogin"),
+                githubVerified = !o.isNull("githubVerifiedAt"),
+            )
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /** Creates the developer profile. null on success, else the reason. */
+    fun become(token: String, name: String, username: String): String? {
+        val body = JSONObject()
+            .put("developerName", name)
+            .put("username", username)
+            .toString()
+        val text = AlphaApi.authedPost("/api/developer/become", body, token)
+            ?: return "Network error"
+        return try {
+            if (JSONObject(text).has("id")) null
+            else reason(text, "Could not create developer account")
+        } catch (e: Exception) {
+            "Could not create developer account"
+        }
+    }
+
+    /**
+     * Connects GitHub by verifying a public gist owns the claimed login and
+     * contains this developer's verification phrase. null on success.
+     */
+    fun connectGithub(token: String, login: String, gistUrl: String): String? {
+        val body = JSONObject()
+            .put("login", login.trim().removePrefix("@"))
+            .put("gistUrl", gistUrl.trim())
+            .toString()
+        val text = AlphaApi.authedPost("/api/developer/github", body, token)
+            ?: return "Network error"
+        return try {
+            if (JSONObject(text).has("error")) reason(text, "GitHub verification failed")
+            else null
+        } catch (e: Exception) {
+            "GitHub verification failed"
+        }
+    }
+
+    fun disconnectGithub(token: String): String? {
+        val text = AlphaApi.authedPost("/api/developer/github/disconnect", "{}", token)
+            ?: return "Network error"
+        return try {
+            if (JSONObject(text).optBoolean("ok", false)) null
+            else reason(text, "Could not disconnect")
+        } catch (e: Exception) {
+            "Could not disconnect"
+        }
+    }
+
+    fun apps(token: String): List<DevAppRow> {
+        val text = AlphaApi.authedGet("/api/developer/apps", token) ?: return emptyList()
+        return try {
+            val arr = JSONArray(text)
+            val out = ArrayList<DevAppRow>()
+            for (i in 0 until arr.length()) {
+                val o = arr.getJSONObject(i)
+                out.add(
+                    DevAppRow(
+                        name = o.optString("name"),
+                        packageId = o.optString("packageId"),
+                        kind = o.optString("kind", "apps"),
+                        state = o.optString("state"),
+                    ),
+                )
+            }
+            out
+        } catch (e: Exception) {
+            emptyList()
         }
     }
 }
@@ -1033,7 +1294,7 @@ fun AlphaTheme(content: @Composable () -> Unit) {
     )
 }
 
-enum class Tab { HOME, APPS, GAMES, UPDATES, LIBRARY }
+enum class Tab { HOME, APPS, GAMES, UPDATES, PROFILE }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -1044,11 +1305,27 @@ fun AlphaStoreApp() {
     var storeUpdate by remember { mutableStateOf<StoreUpdate?>(null) }
     var searchOpen by remember { mutableStateOf(false) }
     var aboutOpen by remember { mutableStateOf(false) }
-    var accountOpen by remember { mutableStateOf(false) }
     var langOpen by remember { mutableStateOf(false) }
+    var developerOpen by remember { mutableStateOf(false) }
+    var signedIn by remember { mutableStateOf(Account.isSignedIn(ctx)) }
     var selectedAppId by remember { mutableStateOf<String?>(null) }
 
     val layoutDirection = if (lang == "ar") LayoutDirection.Rtl else LayoutDirection.Ltr
+
+    // Mandatory Alpha account. The marketplace shell is unreachable until a
+    // verified account exists on this device — the gate creates one on the
+    // first successful email-OTP sign-in, then lets the user in.
+    if (!signedIn) {
+        CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+            AlphaTheme {
+                Surface(modifier = Modifier.fillMaxSize(), color = AlphaBackground) {
+                    AccountGateScreen(lang = lang, onSignedIn = { signedIn = true })
+                }
+            }
+        }
+        return
+    }
+
     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
         AlphaTheme {
             Surface(modifier = Modifier.fillMaxSize(), color = AlphaBackground) {
@@ -1134,13 +1411,6 @@ fun AlphaStoreApp() {
                                             tint = AlphaText,
                                         )
                                     }
-                                    IconButton(onClick = { accountOpen = true }) {
-                                        Icon(
-                                            Icons.Filled.Person,
-                                            contentDescription = L10n.t(lang, "account"),
-                                            tint = if (Account.isSignedIn(ctx)) AlphaAccent else AlphaText,
-                                        )
-                                    }
                                     IconButton(onClick = { aboutOpen = true }) {
                                         Icon(
                                             Icons.Filled.Info,
@@ -1161,7 +1431,7 @@ fun AlphaStoreApp() {
                                     Triple(Tab.APPS, Icons.Filled.Apps, "apps"),
                                     Triple(Tab.GAMES, Icons.Filled.SportsEsports, "games"),
                                     Triple(Tab.UPDATES, Icons.Filled.SystemUpdate, "updates"),
-                                    Triple(Tab.LIBRARY, Icons.Filled.Person, "library"),
+                                    Triple(Tab.PROFILE, Icons.Filled.Person, "profile"),
                                 )
                                 for ((t, icon, key) in tabs) {
                                     NavigationBarItem(
@@ -1211,9 +1481,14 @@ fun AlphaStoreApp() {
                                 Tab.APPS -> BrowseScreen(lang, "apps", openDetails)
                                 Tab.GAMES -> BrowseScreen(lang, "games", openDetails)
                                 Tab.UPDATES -> UpdatesScreen(lang, installManager, installs)
-                                Tab.LIBRARY -> LibraryScreen(lang) { pkg ->
-                                    openStoreApp(ctx, pkg)
-                                }
+                                Tab.PROFILE -> ProfileScreen(
+                                    lang = lang,
+                                    onOpenApp = { pkg -> openStoreApp(ctx, pkg) },
+                                    onLanguage = { langOpen = true },
+                                    onAbout = { aboutOpen = true },
+                                    onDeveloper = { developerOpen = true },
+                                    onSignedOut = { signedIn = false },
+                                )
                                 }
                             }
                         }
@@ -1240,8 +1515,8 @@ fun AlphaStoreApp() {
                         langOpen = false
                     }
                 }
-                if (accountOpen) {
-                    AccountDialog(ctx, lang) { accountOpen = false }
+                if (developerOpen) {
+                    DeveloperScreen(lang = lang, onClose = { developerOpen = false })
                 }
             }
         }
@@ -1344,77 +1619,77 @@ fun AboutDialog(ctx: Context, lang: String, onClose: () -> Unit) {
 }
 
 /**
- * Account dialog: email-OTP sign-in against the same Convex Auth backend the
- * web console uses. Signed-in sessions persist on the device and show the
- * verified email; sign-out clears the stored tokens.
+ * Mandatory Alpha account gate. Rendered in place of the whole marketplace
+ * shell until a verified account exists on the device; the first successful
+ * email-OTP sign-in creates the account, later ones log in.
  */
 @Composable
-fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
+fun AccountGateScreen(lang: String, onSignedIn: () -> Unit) {
+    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
-    var stage by remember { mutableStateOf(if (Account.isSignedIn(ctx)) "in" else "email") }
-    var email by remember { mutableStateOf(Account.email(ctx) ?: "") }
+    var stage by remember { mutableStateOf("email") }
+    var email by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
-    var refreshTick by remember { mutableIntStateOf(0) }
 
-    AlertDialog(
-        onDismissRequest = onClose,
-        confirmButton = {},
-        title = { Text(L10n.t(lang, "account"), color = AlphaText) },
-        text = {
-            Column {
-                if (stage == "in") {
-                    var info by remember { mutableStateOf<Pair<String, String>?>(null) }
-                    LaunchedEffect(refreshTick) {
-                        info = withContext(Dispatchers.IO) { Account.me(ctx) }
-                    }
-                    Icon(
-                        Icons.Filled.CheckCircle,
-                        contentDescription = null,
-                        tint = Color(0xFF34D399),
-                        modifier = Modifier.size(34.dp),
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    Text(L10n.t(lang, "signed_in_as"), color = AlphaTextDim, fontSize = 12.sp)
-                    val i = info
-                    Text(
-                        i?.second ?: Account.email(ctx) ?: "",
-                        color = AlphaText,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                    i?.first?.takeIf { it.isNotBlank() }?.let { n ->
-                        Text(n, color = AlphaAccent, fontSize = 13.sp)
-                    }
-                    Spacer(Modifier.height(10.dp))
-                    Row {
-                        TextButton(onClick = {
-                            Account.clear(ctx)
-                            stage = "email"
-                            email = ""
-                            code = ""
-                            error = null
-                        }) {
-                            Text(L10n.t(lang, "sign_out"), color = Color(0xFFF87171))
-                        }
-                        TextButton(onClick = onClose) {
-                            Text(L10n.t(lang, "cancel"), color = AlphaAccent)
-                        }
-                    }
-                } else if (stage == "email") {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 26.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(76.dp)
+                .background(AlphaAccentDim.copy(alpha = 0.3f), RoundedCornerShape(22.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text("A", color = AlphaAccent, fontSize = 40.sp, fontWeight = FontWeight.Black)
+        }
+        Spacer(Modifier.height(18.dp))
+        Text(
+            "Alpha App Store",
+            color = AlphaText,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            L10n.t(lang, "gate_sub"),
+            color = AlphaTextDim,
+            fontSize = 13.sp,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(Modifier.height(24.dp))
+        Card(
+            colors = CardDefaults.cardColors(containerColor = AlphaSurfaceColor),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(Modifier.padding(18.dp)) {
+                Text(
+                    L10n.t(lang, "gate_create"),
+                    color = AlphaAccent,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(Modifier.height(12.dp))
+                if (stage == "email") {
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
                         singleLine = true,
-                        placeholder = { Text(L10n.t(lang, "account_email"), color = AlphaTextDim) },
+                        placeholder = {
+                            Text(L10n.t(lang, "account_email"), color = AlphaTextDim)
+                        },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = AlphaAccent,
                             cursorColor = AlphaAccent,
                         ),
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Spacer(Modifier.height(10.dp))
+                    Spacer(Modifier.height(12.dp))
                     Button(
                         onClick = {
                             val addr = email.trim()
@@ -1438,14 +1713,12 @@ fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                             }
                         },
                         enabled = !busy,
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
                             if (busy) L10n.t(lang, "sending") else L10n.t(lang, "send_code"),
                             fontWeight = FontWeight.SemiBold,
                         )
-                    }
-                    TextButton(onClick = onClose) {
-                        Text(L10n.t(lang, "cancel"), color = AlphaTextDim, fontSize = 13.sp)
                     }
                 } else {
                     Text(
@@ -1453,19 +1726,21 @@ fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                         color = AlphaTextDim,
                         fontSize = 13.sp,
                     )
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(Modifier.height(10.dp))
                     OutlinedTextField(
                         value = code,
                         onValueChange = { code = it.filter { ch -> ch.isDigit() }.take(6) },
                         singleLine = true,
-                        placeholder = { Text(L10n.t(lang, "account_code"), color = AlphaTextDim) },
+                        placeholder = {
+                            Text(L10n.t(lang, "account_code"), color = AlphaTextDim)
+                        },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = AlphaAccent,
                             cursorColor = AlphaAccent,
                         ),
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Spacer(Modifier.height(10.dp))
+                    Spacer(Modifier.height(12.dp))
                     Button(
                         onClick = {
                             if (code.length == 6) {
@@ -1478,8 +1753,7 @@ fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                                     busy = false
                                     if (r.token != null && r.refreshToken != null) {
                                         Account.save(ctx, r.token, r.refreshToken, email.trim())
-                                        refreshTick++
-                                        stage = "in"
+                                        onSignedIn()
                                     } else {
                                         error = L10n.t(lang, "account_code_wrong")
                                     }
@@ -1487,6 +1761,7 @@ fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                             }
                         },
                         enabled = code.length == 6 && !busy,
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(L10n.t(lang, "verify"), fontWeight = FontWeight.SemiBold)
                     }
@@ -1499,9 +1774,544 @@ fun AccountDialog(ctx: Context, lang: String, onClose: () -> Unit) {
                     Text(msg, color = Color(0xFFF87171), fontSize = 12.sp)
                 }
             }
-        },
-        containerColor = AlphaSurfaceHigh,
-    )
+        }
+        Spacer(Modifier.height(14.dp))
+        Text(
+            L10n.t(lang, "gate_note"),
+            color = AlphaTextDim,
+            fontSize = 11.sp,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+/** Signed-in account card with the real session email and sign-out. */
+@Composable
+fun AccountCard(lang: String, email: String, onSignedOut: () -> Unit) {
+    val ctx = LocalContext.current
+    Card(
+        colors = CardDefaults.cardColors(containerColor = AlphaSurfaceColor),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(46.dp)
+                    .background(AlphaAccentDim.copy(alpha = 0.3f), RoundedCornerShape(14.dp)),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(Icons.Filled.Person, contentDescription = null, tint = AlphaAccent)
+            }
+            Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+                Text(L10n.t(lang, "switch_account"), color = AlphaTextDim, fontSize = 11.sp)
+                Text(
+                    email,
+                    color = AlphaText,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+            TextButton(onClick = {
+                Account.clear(ctx)
+                onSignedOut()
+            }) {
+                Text(L10n.t(lang, "sign_out"), color = Color(0xFFF87171), fontSize = 13.sp)
+            }
+        }
+    }
+}
+
+/** One tappable settings row. */
+@Composable
+fun SettingsRow(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String,
+    value: String,
+    onClick: () -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, contentDescription = null, tint = AlphaAccent, modifier = Modifier.size(20.dp))
+        Text(
+            title,
+            color = AlphaText,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.weight(1f).padding(horizontal = 12.dp),
+        )
+        Text(value, color = AlphaTextDim, fontSize = 12.sp, maxLines = 1)
+    }
+}
+
+/** One installed-package row (library section of the profile). */
+@Composable
+fun InstalledRow(
+    lang: String,
+    pkg: String,
+    info: Pair<String, Long>,
+    onOpen: (String) -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier
+                .size(44.dp)
+                .background(AlphaSurfaceHigh, RoundedCornerShape(10.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                pkg.takeLast(1).uppercase(),
+                color = AlphaViolet,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+            )
+        }
+        Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+            Text(
+                pkg,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 13.sp,
+                color = AlphaText,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                L10n.t(lang, "version") + " " + info.first + " (" + info.second + ")",
+                fontSize = 11.sp,
+                color = AlphaTextDim,
+            )
+        }
+        TextButton(onClick = { onOpen(pkg) }) {
+            Text(L10n.t(lang, "open"), color = AlphaAccent)
+        }
+    }
+}
+
+/**
+ * Profile dashboard: signed-in account, settings (language, install
+ * permissions, developer settings, about) and the installed-app library.
+ */
+@Composable
+fun ProfileScreen(
+    lang: String,
+    onOpenApp: (String) -> Unit,
+    onLanguage: () -> Unit,
+    onAbout: () -> Unit,
+    onDeveloper: () -> Unit,
+    onSignedOut: () -> Unit,
+) {
+    val ctx = LocalContext.current
+    var email by remember { mutableStateOf(Account.email(ctx) ?: "") }
+    var installed by remember {
+        mutableStateOf<List<Pair<String, Pair<String, Long>>>?>(null)
+    }
+
+    LaunchedEffect(Unit) {
+        val me = withContext(Dispatchers.IO) { Account.me(ctx) }
+        if (me != null && me.second.isNotEmpty()) email = me.second
+        val all = withContext(Dispatchers.IO) { installedPackages(ctx) }
+        installed = all.entries
+            .filter {
+                it.key == "com.alphaappstore.mobile" ||
+                    it.key.startsWith("app.alpha.") ||
+                    it.key.startsWith("game.alpha.")
+            }
+            .map { it.key to it.value }
+            .sortedBy { it.first }
+    }
+
+    LazyColumn(Modifier.fillMaxSize()) {
+        item { AccountCard(lang, email, onSignedOut) }
+        item { SectionTitle(L10n.t(lang, "settings")) }
+        item {
+            SettingsRow(
+                Icons.Filled.Language,
+                L10n.t(lang, "language"),
+                L10n.LANG_LABELS[lang] ?: lang,
+                onLanguage,
+            )
+        }
+        item {
+            SettingsRow(
+                Icons.Filled.GetApp,
+                L10n.t(lang, "install_settings"),
+                if (canInstallPackages(ctx)) L10n.t(lang, "install_settings_on")
+                else L10n.t(lang, "install_settings_off"),
+            ) { requestInstallPermission(ctx) }
+        }
+        item {
+            SettingsRow(
+                Icons.Filled.Person,
+                L10n.t(lang, "developer_center"),
+                L10n.t(lang, "developer_center_sub"),
+                onDeveloper,
+            )
+        }
+        item {
+            SettingsRow(
+                Icons.Filled.Info,
+                L10n.t(lang, "about"),
+                "1.1.0",
+                onAbout,
+            )
+        }
+        item { SectionTitle(L10n.t(lang, "installed_apps")) }
+        val list = installed
+        if (list == null) {
+            item { LoadingList() }
+        } else if (list.isEmpty()) {
+            item { EmptyBox(lang, Icons.Filled.GetApp, L10n.t(lang, "no_results")) }
+        } else {
+            items(list, key = { it.first }) { entry ->
+                InstalledRow(lang, entry.first, entry.second, onOpenApp)
+            }
+        }
+        item { Spacer(Modifier.height(24.dp)) }
+    }
+}
+
+/**
+ * Developer settings. Holds the release gate: an app can only be submitted
+ * or published when the developer has connected a verified GitHub account
+ * here — the backend enforces the same rule on every transition.
+ */
+@Composable
+fun DeveloperScreen(lang: String, onClose: () -> Unit) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val token = remember { Account.token(ctx) }
+    var profile by remember { mutableStateOf<DevProfile?>(null) }
+    var apps by remember { mutableStateOf<List<DevAppRow>>(emptyList()) }
+    var loading by remember { mutableStateOf(true) }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var name by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var login by remember { mutableStateOf("") }
+    var gist by remember { mutableStateOf("") }
+    var tick by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(tick) {
+        val t = token
+        if (t == null) {
+            loading = false
+        } else {
+            val p = withContext(Dispatchers.IO) { Developer.profile(t) }
+            profile = p
+            apps = if (p == null) emptyList()
+            else withContext(Dispatchers.IO) { Developer.apps(t) }
+            loading = false
+        }
+    }
+
+    Column(Modifier.fillMaxSize()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            IconButton(onClick = onClose) {
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = L10n.t(lang, "back"),
+                    tint = AlphaText,
+                )
+            }
+            Text(
+                L10n.t(lang, "developer_center"),
+                color = AlphaAccent,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+            )
+        }
+
+        val p = profile
+        if (loading) {
+            LoadingList()
+        } else if (p == null) {
+            Column(Modifier.fillMaxWidth().padding(16.dp)) {
+                Text(
+                    L10n.t(lang, "dev_create"),
+                    color = AlphaAccent,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    singleLine = true,
+                    placeholder = { Text(L10n.t(lang, "dev_name"), color = AlphaTextDim) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = AlphaAccent,
+                        cursorColor = AlphaAccent,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(10.dp))
+                OutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it.trim().lowercase() },
+                    singleLine = true,
+                    placeholder = { Text(L10n.t(lang, "dev_username"), color = AlphaTextDim) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = AlphaAccent,
+                        cursorColor = AlphaAccent,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(14.dp))
+                Button(
+                    onClick = {
+                        busy = true
+                        error = null
+                        scope.launch {
+                            val t = token
+                            val err = if (t == null) "Network error"
+                            else withContext(Dispatchers.IO) {
+                                Developer.become(t, name.trim(), username.trim())
+                            }
+                            busy = false
+                            if (err == null) tick++ else error = err
+                        }
+                    },
+                    enabled = !busy && name.isNotBlank() && username.isNotBlank(),
+                ) {
+                    Text(L10n.t(lang, "dev_create_btn"), fontWeight = FontWeight.SemiBold)
+                }
+                error?.let { msg ->
+                    Spacer(Modifier.height(10.dp))
+                    Text(msg, color = Color(0xFFF87171), fontSize = 12.sp)
+                }
+            }
+        } else {
+            LazyColumn(Modifier.fillMaxWidth().weight(1f)) {
+                item {
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = AlphaSurfaceColor),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                    ) {
+                        Column(Modifier.padding(16.dp)) {
+                            Text(
+                                p.developerName,
+                                color = AlphaText,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                            )
+                            Text("@" + p.username, color = AlphaAccent, fontSize = 13.sp)
+                        }
+                    }
+                }
+                item {
+                    val phrase = "alpha-store-verify:" + p.username
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = AlphaSurfaceColor),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                    ) {
+                        Column(Modifier.padding(16.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Filled.CheckCircle,
+                                    contentDescription = null,
+                                    tint = if (p.githubVerified) Color(0xFF34D399)
+                                    else Color(0xFFFBBF24),
+                                    modifier = Modifier.size(18.dp),
+                                )
+                                Spacer(Modifier.width(8.dp))
+                                Text(
+                                    L10n.t(lang, "github_title"),
+                                    color = AlphaText,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                            }
+                            Spacer(Modifier.height(8.dp))
+                            if (p.githubVerified) {
+                                Text(
+                                    L10n.t(lang, "github_connected") + ": @" +
+                                        (p.githubLogin ?: ""),
+                                    color = Color(0xFF34D399),
+                                    fontSize = 13.sp,
+                                )
+                                Spacer(Modifier.height(10.dp))
+                                OutlinedButton(onClick = {
+                                    busy = true
+                                    error = null
+                                    scope.launch {
+                                        val t = token
+                                        val err = if (t == null) "Network error"
+                                        else withContext(Dispatchers.IO) {
+                                            Developer.disconnectGithub(t)
+                                        }
+                                        busy = false
+                                        if (err == null) tick++ else error = err
+                                    }
+                                }, enabled = !busy) {
+                                    Text(L10n.t(lang, "github_disconnect"), color = AlphaText)
+                                }
+                            } else {
+                                Text(
+                                    L10n.t(lang, "github_required"),
+                                    color = Color(0xFFFBBF24),
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                                Spacer(Modifier.height(6.dp))
+                                Text(
+                                    L10n.t(lang, "github_required_body"),
+                                    color = AlphaTextDim,
+                                    fontSize = 12.sp,
+                                )
+                                Spacer(Modifier.height(10.dp))
+                                Text(
+                                    L10n.t(lang, "github_phrase"),
+                                    color = AlphaTextDim,
+                                    fontSize = 11.sp,
+                                )
+                                Text(
+                                    phrase,
+                                    color = AlphaAccent,
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                                TextButton(onClick = {
+                                    try {
+                                        val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE)
+                                            as android.content.ClipboardManager
+                                        cm.setPrimaryClip(
+                                            android.content.ClipData.newPlainText(
+                                                "alpha-verify",
+                                                phrase,
+                                            ),
+                                        )
+                                        Toast.makeText(
+                                            ctx,
+                                            L10n.t(lang, "copied"),
+                                            Toast.LENGTH_SHORT,
+                                        ).show()
+                                    } catch (e: Exception) {
+                                    }
+                                }) {
+                                    Text(L10n.t(lang, "copy"), color = AlphaAccent, fontSize = 12.sp)
+                                }
+                                Spacer(Modifier.height(4.dp))
+                                OutlinedTextField(
+                                    value = login,
+                                    onValueChange = { login = it },
+                                    singleLine = true,
+                                    placeholder = {
+                                        Text(L10n.t(lang, "github_login"), color = AlphaTextDim)
+                                    },
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        focusedBorderColor = AlphaAccent,
+                                        cursorColor = AlphaAccent,
+                                    ),
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                                Spacer(Modifier.height(8.dp))
+                                OutlinedTextField(
+                                    value = gist,
+                                    onValueChange = { gist = it },
+                                    singleLine = true,
+                                    placeholder = {
+                                        Text(L10n.t(lang, "github_gist"), color = AlphaTextDim)
+                                    },
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        focusedBorderColor = AlphaAccent,
+                                        cursorColor = AlphaAccent,
+                                    ),
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                                Spacer(Modifier.height(12.dp))
+                                Button(
+                                    onClick = {
+                                        busy = true
+                                        error = null
+                                        scope.launch {
+                                            val t = token
+                                            val err = if (t == null) "Network error"
+                                            else withContext(Dispatchers.IO) {
+                                                Developer.connectGithub(t, login, gist)
+                                            }
+                                            busy = false
+                                            if (err == null) tick++ else error = err
+                                        }
+                                    },
+                                    enabled = !busy && login.isNotBlank() && gist.isNotBlank(),
+                                ) {
+                                    Text(
+                                        L10n.t(lang, "github_connect"),
+                                        fontWeight = FontWeight.SemiBold,
+                                    )
+                                }
+                            }
+                            error?.let { msg ->
+                                Spacer(Modifier.height(10.dp))
+                                Text(msg, color = Color(0xFFF87171), fontSize = 12.sp)
+                            }
+                        }
+                    }
+                }
+                item { SectionTitle(L10n.t(lang, "dev_apps")) }
+                if (apps.isEmpty()) {
+                    item { EmptyBox(lang, Icons.Filled.Apps, L10n.t(lang, "dev_no_apps")) }
+                } else {
+                    items(apps) { row ->
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    row.name,
+                                    color = AlphaText,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                                Text(
+                                    row.packageId,
+                                    color = AlphaTextDim,
+                                    fontSize = 11.sp,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                            Text(
+                                row.state.uppercase(),
+                                color = if (row.state == "published") Color(0xFF34D399)
+                                else AlphaAccent,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                        }
+                    }
+                }
+                item { Spacer(Modifier.height(24.dp)) }
+            }
+        }
+    }
 }
 
 // ============================================================
@@ -1781,6 +2591,16 @@ fun HomeScreen(lang: String, onOpen: (String) -> Unit) {
         return
     }
 
+    val published = f.featured.size + f.editorsPicks.size + f.newReleases.size +
+        f.recentlyUpdated.size + f.popularGames.size + f.recommended.size
+    if (published == 0) {
+        Column(Modifier.fillMaxSize()) {
+            SectionTitle(L10n.t(lang, "home"))
+            EmptyBox(lang, Icons.Filled.GetApp, L10n.t(lang, "catalog_empty"))
+        }
+        return
+    }
+
     LazyColumn(Modifier.fillMaxSize()) {
         item { SectionTitle(L10n.t(lang, "featured")) }
         item {
@@ -2015,83 +2835,6 @@ fun UpdatesScreen(
                         fontSize = 11.sp,
                         modifier = Modifier.padding(start = 74.dp, bottom = 6.dp),
                     )
-                }
-                item { Spacer(Modifier.height(20.dp)) }
-            }
-        }
-    }
-}
-
-@Composable
-fun LibraryScreen(lang: String, onOpen: (String) -> Unit) {
-    val ctx = LocalContext.current
-    var installed by remember {
-        mutableStateOf<List<Pair<String, Pair<String, Long>>>?>(null)
-    }
-
-    LaunchedEffect(Unit) {
-        val all = withContext(Dispatchers.IO) { installedPackages(ctx) }
-        installed = all.entries
-            .filter {
-                it.key == "com.alphaappstore.mobile" ||
-                    it.key.startsWith("app.alpha.") ||
-                    it.key.startsWith("game.alpha.")
-            }
-            .map { it.key to it.value }
-            .sortedBy { it.first }
-    }
-
-    Column(Modifier.fillMaxSize()) {
-        SectionTitle(L10n.t(lang, "library"))
-        val list = installed
-        if (list == null) {
-            LoadingList()
-        } else if (list.isEmpty()) {
-            EmptyBox(lang, Icons.Filled.GetApp, L10n.t(lang, "no_results"))
-        } else {
-            LazyColumn(Modifier.fillMaxSize()) {
-                items(list, key = { it.first }) { entry ->
-                    val pkg = entry.first
-                    val info = entry.second
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Box(
-                            Modifier
-                                .size(44.dp)
-                                .background(AlphaSurfaceHigh, RoundedCornerShape(10.dp)),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Text(
-                                pkg.takeLast(1).uppercase(),
-                                color = AlphaViolet,
-                                fontSize = 17.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                        Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
-                            Text(
-                                pkg,
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 13.sp,
-                                color = AlphaText,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                            Text(
-                                L10n.t(lang, "version") + " " + info.first +
-                                    " (" + info.second + ")",
-                                fontSize = 11.sp,
-                                color = AlphaTextDim,
-                            )
-                        }
-                        TextButton(onClick = { onOpen(pkg) }) {
-                            Text(L10n.t(lang, "open"), color = AlphaAccent)
-                        }
-                    }
                 }
                 item { Spacer(Modifier.height(20.dp)) }
             }
